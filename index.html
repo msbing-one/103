@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Current Time</title>
+  <script>
+    function updateTime() {
+      var currentTime = new Date();
+      var hours = currentTime.getHours();
+
+      var timeString = hours;
+      document.getElementById("time").innerHTML = timeString;
+
+      // Store the current hour in sessionStorage
+      sessionStorage.setItem("currentHour", hours);
+    }
+
+    function receiveHour() {
+      // Retrieve the current hour from sessionStorage
+      const receivedHour = sessionStorage.getItem("currentHour");
+
+      if (receivedHour !== null) {
+        document.getElementById("hourInput").value = receivedHour;
+        console.log('Received hour:', receivedHour);
+        // Perform any additional processing here
+      }
+    }
+
+    setInterval(updateTime, 1000); // Update every second
+  </script>
+</head>
+<body onload="receiveHour()">
+  <h1></h1>
+  <p id="time"></p>
+  <label for="hourInput">Received Hour:</label>
+  <input type="text" id="hourInput" readonly>
+</body>
+</html>
